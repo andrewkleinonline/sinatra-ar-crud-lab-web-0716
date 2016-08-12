@@ -21,8 +21,8 @@ class ApplicationController < Sinatra::Base
     #binding.pry
     #puts params
     @post = Post.create(name: params[:name],content: params[:content])
-    @posts = Post.all
-    erb :index
+    #@posts = Post.all
+    redirect '/posts'
   end
 
   get '/posts' do
@@ -41,7 +41,7 @@ class ApplicationController < Sinatra::Base
   end
 
   patch '/posts/:id' do
-    
+
   end
 
 end
