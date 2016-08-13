@@ -8,20 +8,15 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/' do
-    # @posts = Post.all
-    # erb :index
+    redirect '/posts'
   end
 
   get '/posts/new' do
-
     erb :new
   end
 
   post '/posts' do
-    #binding.pry
-    #puts params
     @post = Post.create(name: params[:name],content: params[:content])
-    #@posts = Post.all
     redirect '/posts'
   end
 
@@ -36,12 +31,19 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/posts/:id/edit' do
-
+    @post = Post.find(params[:id])
     erb :edit
   end
 
   patch '/posts/:id' do
+    Post.update(params[:id],name: params["name"],content: params["content"])
+    redirect "/posts/#{params[:id]}"
+  end
 
+  delete '/posts/:id/delete' do
+    @post_name = Post.find(params[:id]).name
+    Post.find(params[:id]).destroy
+    erb :delete
   end
 
 end
